@@ -6,13 +6,13 @@ import jakarta.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String name;
+    private Long id;
+    private String name;
     @Column(unique = true)
-    String email;
-    String password;
+    private String email;
+    private String password;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    Investment investment;
+    private Investment[] investment;
 
     public User() {
     }
@@ -56,11 +56,11 @@ public class User {
         this.password = password;
     }
 
-    public Investment getInvestment() {
+    public Investment[] getInvestment() {
         return investment;
     }
 
-    public void setInvestment(Investment investment) {
+    public void setInvestment(Investment[] investment) {
         this.investment = investment;
     }
 

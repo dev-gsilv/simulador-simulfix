@@ -8,23 +8,23 @@ import java.math.BigDecimal;
 public class Investment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String description;
-    String type;
-    String indexer;
-    Integer term;
+    private Long id;
+    private String description;
+    private String type;
+    private String indexer;
+    private Integer term;
     @Column(name = "amount_invested", precision = 13, scale = 2)
-    BigDecimal amountInvested;
-    @Column(name = "interest_rate", precision = 3, scale = 4)
-    Float interestRate;
+    private BigDecimal amountInvested;
+    @Column(name = "interest_rate")
+    private float interestRate;
     @Column(name = "gross_total_value", precision = 13, scale = 2)
-    BigDecimal grossTotalValue;
+    private BigDecimal grossTotalValue;
     @Column(name = "net_total_value", precision = 13, scale = 2)
-    BigDecimal netTotalValue;
+    private BigDecimal netTotalValue;
     @Column(name = "income_tax_value", precision = 13, scale = 2)
-    BigDecimal incomeTaxValue;
+    private BigDecimal incomeTaxValue;
     @Column(name = "income_tax_due")
-    Boolean isDueIncomeTax;
+    private Boolean isDueIncomeTax;
 
     public Investment() {
 
