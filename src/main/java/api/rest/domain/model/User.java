@@ -2,6 +2,8 @@ package api.rest.domain.model;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity(name = "tb_user")
 public class User {
     @Id
@@ -11,18 +13,9 @@ public class User {
     @Column(unique = true)
     private String email;
     private String password;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Investment[] investment;
+    /*@OneToMany(cascade = CascadeType.ALL)
+    private Set<Investment> investment;*/
 
-    public User() {
-    }
-
-    public User(Long id, String name, String email, String password) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
 
     public Long getId() {
         return id;
@@ -56,22 +49,12 @@ public class User {
         this.password = password;
     }
 
-    public Investment[] getInvestment() {
+/*    public Set<Investment> getInvestment() {
         return investment;
     }
 
-    public void setInvestment(Investment[] investment) {
+    public void setInvestment(Set<Investment> investment) {
         this.investment = investment;
-    }
+    }*/
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", investment=" + investment +
-                '}';
-    }
 }
