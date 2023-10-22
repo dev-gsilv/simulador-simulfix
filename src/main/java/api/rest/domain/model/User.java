@@ -13,9 +13,6 @@ public class User {
     @Column(unique = true)
     private String email;
     private String password;
-    /*@OneToMany(cascade = CascadeType.ALL)
-    private Set<Investment> investment;*/
-
 
     public Long getId() {
         return id;
@@ -48,13 +45,4 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-/*    public Set<Investment> getInvestment() {
-        return investment;
-    }
-
-    public void setInvestment(Set<Investment> investment) {
-        this.investment = investment;
-    }*/
-
 }

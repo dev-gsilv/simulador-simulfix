@@ -6,43 +6,33 @@ import java.math.BigDecimal;
 
 @Entity(name = "tb_investment")
 public class Investment {
+    // Atributos fornnecidos pelo usuário
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String description;
-    private String type;
-    private String indexer;
-    private Integer term;
-    @Column(name = "amount_invested", precision = 13, scale = 2)
-    private BigDecimal amountInvested;
+    private String type; // tipo de investimento: "lci", "lca", "cri", "cra", "poupança", "cdb", "tesouro"
+    private String indexer; // tipo de juros da simulação: pre-fixado, pos-fixado ou misto.
+    private Integer term; // prazo do investimento em meses
     @Column(name = "interest_rate")
-    private float interestRate;
+    private Double interestRate; // taxa de juros anual
+    @Column(name = "amount_invested")//, precision = 13, scale = 2)
+    private Double amountInvested; // valor investido em reais
+
+    // Atributos calculados
     @Column(name = "gross_total_value", precision = 13, scale = 2)
-    private BigDecimal grossTotalValue;
+    private BigDecimal grossTotalValue; // valor total do retorno
     @Column(name = "net_total_value", precision = 13, scale = 2)
-    private BigDecimal netTotalValue;
+    private BigDecimal netTotalValue; // valor líquido do retorno
     @Column(name = "income_tax_value", precision = 13, scale = 2)
-    private BigDecimal incomeTaxValue;
+    private BigDecimal incomeTaxValue; // valor do imposto de renda
     @Column(name = "income_tax_due")
-    private Boolean isDueIncomeTax;
+    private Boolean isDueIncomeTax; // boleano para investimento com imposto de renda obrigatorio
 
-    public Investment() {
-
-    }
-
-    public Investment(Long id, String description, String type, String indexer, Integer term, BigDecimal amountInvested, Float interestRate, BigDecimal grossTotalValue, BigDecimal netTotalValue, BigDecimal incomeTaxValue, Boolean isDueIncomeTax) {
-        this.id = id;
-        this.description = description;
-        this.type = type;
-        this.indexer = indexer;
-        this.term = term;
-        this.amountInvested = amountInvested;
-        this.interestRate = interestRate;
-        this.grossTotalValue = grossTotalValue;
-        this.netTotalValue = netTotalValue;
-        this.incomeTaxValue = incomeTaxValue;
-        this.isDueIncomeTax = isDueIncomeTax;
-    }
+    // Creator relation
+    @JoinColumn(name = "creator_id", referencedColumnName = "id")
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+    private User creatorId;
 
     public Long getId() {
         return id;
@@ -84,19 +74,19 @@ public class Investment {
         this.term = term;
     }
 
-    public BigDecimal getAmountInvested() {
+    public Double getAmountInvested() {
         return amountInvested;
     }
 
-    public void setAmountInvested(BigDecimal amountInvested) {
+    public void setAmountInvested(Double amountInvested) {
         this.amountInvested = amountInvested;
     }
 
-    public Float getInterestRate() {
+    public Double getInterestRate() {
         return interestRate;
     }
 
-    public void setInterestRate(Float interestRate) {
+    public void setInterestRate(Double interestRate) {
         this.interestRate = interestRate;
     }
 
@@ -132,20 +122,11 @@ public class Investment {
         isDueIncomeTax = dueIncomeTax;
     }
 
-    @Override
-    public String toString() {
-        return "Investment{" +
-                "id=" + id +
-                ", description='" + description + '\'' +
-                ", type='" + type + '\'' +
-                ", indexer='" + indexer + '\'' +
-                ", term=" + term +
-                ", amountInvested=" + amountInvested +
-                ", interestRate=" + interestRate +
-                ", grossTotalValue=" + grossTotalValue +
-                ", netTotalValue=" + netTotalValue +
-                ", incomeTaxValue=" + incomeTaxValue +
-                ", isDueIncomeTax=" + isDueIncomeTax +
-                '}';
+    public User getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(User creatorId) {
+        this.creatorId = creatorId;
     }
 }
